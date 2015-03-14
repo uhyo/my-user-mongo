@@ -1,0 +1,25 @@
+{
+  "name": "my-user-mongo",
+  "version": "0.0.1",
+  "description": "My user management using MongoDB for me.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uhyo/my-user-mongo.git"
+  },
+  "keywords": [
+    "user"
+  ],
+  "author": "uhyo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uhyo/my-user-mongo/issues"
+  },
+  "homepage": "https://github.com/uhyo/my-user-mongo",
+  "dependencies": {
+    "my-user": "^0.1.0"
+  }
+}
