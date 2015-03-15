@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/uhyo/my-user-mongo",
   "dependencies": {
-    "my-user": "^0.1.0"
+    "extend": "^2.0.0",
+    "mongodb": "^2.0.21",
+    "my-user": "^0.1.0",
+    "random-string": "^0.1.2"
   }
 }
