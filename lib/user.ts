@@ -10,6 +10,7 @@ export import User=myuser.User;
 export import UserConfig=myuser.UserConfig;
 
 export type UserCallback=(err:any,user:User)=>void;
+export type UsersCallback=(err:any,users:Array<User>)=>void;
 
 export interface UserDoc{
     _id:ObjectId;
@@ -63,33 +64,50 @@ export interface ManagerOptions{
     userIdLength:number;
 }
 
-interface FindOneUserQuery{
-    id?:string;
-}
-
 //User manager
 export class Manager{
     constructor(private userconfig:UserConfig,private db:any,private collection:string,private options:ManagerOptions){
     }
     //
     //low level user manipulation
-    findOneUser(query:FindOneUserQuery,callback:UserCallback):void{
+    findOneUser(query:any,callback:UserCallback):void{
         this.db.collection(this.collection,(err,coll)=>{
             if(err){
                 callback(err,null);
                 return;
             }
-            //make query
-            var q:any={};
-            if(query.id!=null){
-                q.id=query.id;
-            }
-            coll.findOne(q,(err,doc:UserDoc)=>{
+            coll.findOne(query,(err,doc:UserDoc)=>{
                 if(err){
                     callback(err,null);
                     return;
                 }
                 callback(null,load(this.userconfig,doc));
+            });
+        });
+    }
+    findUsers(query:any,callback:UsersCallback):void;
+    findUsers(query:any,options:any,callback:UsersCallback):void;
+    findUsers(query:any,arg2:any,arg3?:any):void{
+        var options:any, callback:UsersCallback;
+        if("function"===typeof arg2){
+            options={}, callback=arg2;
+        }else{
+            options=arg2, callback=arg3;
+        }
+
+        this.db.collection(this.collection,(err,coll)=>{
+            if(err){
+                callback(err,null);
+                return;
+            }
+            coll.find(query,options).toArray((err,docs:Array<UserDoc>)=>{
+                if(err){
+                    callback(err,null);
+                    return;
+                }
+                callback(null,docs.map((doc)=>{
+                    return load(this.userconfig,doc);
+                }));
             });
         });
     }

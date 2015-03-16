@@ -20,7 +20,6 @@ interface DBOptions{
     url?:string;
     collection?:{
         user?:string;
-        ticket?:string;
     };
 }
 
@@ -33,7 +32,6 @@ export class Manager{
     private db:any;
     private collection:{
         user:string;
-        ticket:string;
     };
     private options:ManagerOptions;
 
@@ -49,8 +47,7 @@ export class Manager{
         //default values
         options=extend(true,{
             collection:{
-                user:"user",
-                ticket:"ticket"
+                user:"user"
             }
         },options);
         
@@ -64,8 +61,7 @@ export class Manager{
 
         //Read options
         this.collection = {
-            user: options.collection.user,
-            ticket: options.collection.ticket
+            user: options.collection.user
         };
 
         //Connect to db
