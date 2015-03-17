@@ -61,7 +61,7 @@ export function toDoc(user:User):UserDoc{
 
 export interface ManagerOptions{
     //user id length
-    userIdLength:number;
+    userIdLength?:number;
 }
 
 //User manager
@@ -158,6 +158,35 @@ export class Manager{
             });
         }
     }
+    saveUser(u:User,callback:Callback):void{
+        this.db.collection(this.collection,(err,coll)=>{
+            if(err){
+                callback(err,null);
+                return;
+            }
+            coll.updateOne({id:u.id},toDoc(u),callback);
+        });
+    }
+    deleteUser(u:User,callback:Callback):void{
+        this.db.collection(this.collection,(err,coll)=>{
+            if(err){
+                callback(err,null);
+                return;
+            }
+            coll.deleteOne({id:u.id},callback);
+        });
+    }
 
-
+    //are
+    existsUser(userid:string,callback:Callback):void{
+        this.db.collection(this.collection,(err,coll)=>{
+            if(err){
+                callback(err,null);
+                return;
+            }
+            coll.findOne({id:userid},{id:1},(err,doc)=>{
+                callback(err, doc!=null);
+            });
+        });
+    }
 }

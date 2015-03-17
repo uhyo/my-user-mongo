@@ -6,21 +6,19 @@ import extend=require('extend');
 
 import user=require('./user');
 
-import User=user.User;
-import UserConfig=user.UserConfig;
-import UserDoc=user.UserDoc;
+export import User=user.User;
+export import UserConfig=user.UserConfig;
+export import UserDoc=user.UserDoc;
 import UserCallback=user.UserCallback;
 
-interface ManagerOptions{
-    user?:user.ManagerOptions;
-}
-
-interface DBOptions{
+export interface ManagerOptions{
     db?:any;
     url?:string;
     collection?:{
         user?:string;
     };
+
+    user?:user.ManagerOptions;
 }
 
 interface EntryResult{
@@ -37,20 +35,18 @@ export class Manager{
 
     public user:user.Manager;
 
-    constructor(options?:any){
-        this.options=options || {};
-        this.userconfig=user.init();
-    }
-
-    //initialize
-    init(options:DBOptions,callback:Callback):void{
-        //default values
-        options=extend(true,{
+    constructor(options:ManagerOptions){
+        this.options=extend(true,{
             collection:{
                 user:"user"
             }
         },options);
-        
+        this.userconfig=user.init();
+    }
+
+    //initialize
+    init(callback:Callback):void{
+        var options=this.options;
         //Error check
         if(options.db==null && options.url==null){
             throw new Error("Neither Db instance nor connection url is given.");
