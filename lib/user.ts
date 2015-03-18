@@ -130,11 +130,9 @@ export class Manager{
                         return;
                     }
 
-                    //TODO
-                    data=extend(true,data,{
+                    u.writeData({
                         _id:result.insertedId
                     });
-                    u.setData(data);
                     callback(null,u);
                 });
             });
