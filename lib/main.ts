@@ -1,7 +1,3 @@
-///<reference path="./node.d.ts" />
-///<reference path="./util.d.ts" />
-///<reference path="../node_modules/my-user/lib.d.ts" />
-
 import extend=require('extend');
 
 import user=require('./user');
@@ -18,10 +14,10 @@ export interface ManagerOptions{
         user?:string;
     };
 
-    user?:user.ManagerOptions;
+    user: user.ManagerOptions;
 }
 
-interface EntryResult{
+export interface EntryResult{
     user:User;
 }
 
@@ -46,7 +42,7 @@ export class Manager{
 
     //initialize
     init(callback:Callback):void{
-        var options=this.options;
+        const options=this.options;
         //Error check
         if(options.db==null && options.url==null){
             throw new Error("Neither Db instance nor connection url is given.");
@@ -57,7 +53,7 @@ export class Manager{
 
         //Read options
         this.collection = {
-            user: options.collection.user
+            user: options.collection!.user!
         };
 
         //Connect to db
@@ -86,13 +82,13 @@ export class Manager{
         this.user=new user.Manager(this.userconfig,this.db,this.collection.user,this.options.user);
     }
     //high level user manipulation
-    entry(data:any,callback:(err,result:EntryResult)=>void):void{
+    entry(data:any, callback:(err, result:EntryResult | null)=>void):void{
         this.user.createNewUser(data,(err,u:User)=>{
             if(err){
-                callback(err,null);
+                callback(err, null);
                 return;
             }
-            callback(null,{
+            callback(null, {
                 user:u
             });
         });

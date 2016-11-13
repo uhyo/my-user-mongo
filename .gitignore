@@ -30,3 +30,6 @@ node_modules
 # vim file
 *.swp
 *.swo
+
+# Build result
+dist/

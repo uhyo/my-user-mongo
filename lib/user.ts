@@ -1,7 +1,3 @@
-///<reference path="./node.d.ts" />
-///<reference path="./util.d.ts" />
-///<reference path="../node_modules/my-user/lib.d.ts" />
-
 import extend=require('extend');
 import randomstring=require('random-string');
 import myuser=require('my-user');
@@ -9,12 +5,12 @@ import myuser=require('my-user');
 export import User=myuser.User;
 export import UserConfig=myuser.UserConfig;
 
-export type UserCallback=(err:any,user:User)=>void;
-export type UsersCallback=(err:any,users:Array<User>)=>void;
+export type UserCallback=(err:any, user:User | null)=>void;
+export type UsersCallback=(err:any, users:Array<User> | null)=>void;
 
 export interface UserDoc{
     _id:ObjectId;
-    id:string;
+    id:string | null;
     version:number;
     salt:string;
     password:string;
@@ -24,11 +20,11 @@ export interface UserDoc{
 
 export function init():UserConfig{
     //TODO
-    return (<any>myuser).init();
+    return myuser.init();
 }
 
 //UserDoc -> User
-export function load(userconfig:UserConfig,doc:UserDoc):User{
+export function load(userconfig:UserConfig, doc:UserDoc | null): User | null{
     if(doc==null){
         return null;
     }
@@ -42,13 +38,13 @@ export function load(userconfig:UserConfig,doc:UserDoc):User{
 }
 
 //User -> UserDoc
-export function toDoc(user:User):UserDoc{
+export function toDoc(user:User): UserDoc | null{
     if(user==null){
         return null;
     }
     //TODO
     var data=user.getData();
-    var result:UserDoc={
+    var result: UserDoc = {
         _id: data._id,
         id:user.id,
         version:user.version,
@@ -73,7 +69,7 @@ export class Manager{
     findOneUser(query:any,callback:UserCallback):void{
         this.db.collection(this.collection,(err,coll)=>{
             if(err){
-                callback(err,null);
+                callback(err, null);
                 return;
             }
             coll.findOne(query,(err,doc:UserDoc)=>{
@@ -105,9 +101,9 @@ export class Manager{
                     callback(err,null);
                     return;
                 }
-                callback(null,docs.map((doc)=>{
-                    return load(this.userconfig,doc);
-                }));
+                callback(null, docs.map((doc)=>{
+                    return load(this.userconfig, doc) as User;
+                }).filter(u=> u != null));
             });
         });
     }

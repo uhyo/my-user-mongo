@@ -1,9 +1,12 @@
 {
   "name": "my-user-mongo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "My user management using MongoDB for me.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,9 +23,15 @@
   },
   "homepage": "https://github.com/uhyo/my-user-mongo",
   "dependencies": {
-    "extend": "^2.0.0",
-    "mongodb": "^2.0.22",
-    "my-user": "^0.1.1",
+    "extend": "^3.0.0",
+    "mongodb": "^2.2.11",
+    "my-user": "^0.1.2",
     "random-string": "^0.1.2"
+  },
+  "devDependencies": {
+    "@types/extend": "^2.0.30",
+    "@types/node": "^6.0.46",
+    "@types/random-string": "0.0.28",
+    "typescript": "^2.0.9"
   }
 }
