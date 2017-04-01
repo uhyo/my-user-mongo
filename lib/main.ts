@@ -2,6 +2,10 @@ import extend=require('extend');
 
 import user=require('./user');
 
+import {
+    Callback,
+} from './util';
+
 export import User=user.User;
 export import UserConfig=user.UserConfig;
 export import UserDoc=user.UserDoc;
@@ -41,7 +45,7 @@ export class Manager{
     }
 
     //initialize
-    init(callback:Callback):void{
+    init(callback: Callback<any>):void{
         const options=this.options;
         //Error check
         if(options.db==null && options.url==null){

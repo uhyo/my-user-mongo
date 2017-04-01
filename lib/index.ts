@@ -8,6 +8,8 @@ import {
 export {
     User,
     UserConfig,
+    Manager,
+    ManagerOptions,
 };
 
 export function manager(options: ManagerOptions): Manager{

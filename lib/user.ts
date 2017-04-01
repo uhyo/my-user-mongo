@@ -2,6 +2,14 @@ import extend=require('extend');
 import randomstring=require('random-string');
 import myuser=require('my-user');
 
+import {
+    ObjectID,
+} from 'mongodb';
+
+import {
+    Callback,
+} from './util';
+
 export import User=myuser.User;
 export import UserConfig=myuser.UserConfig;
 
@@ -9,7 +17,7 @@ export type UserCallback=(err:any, user:User | null)=>void;
 export type UsersCallback=(err:any, users:Array<User> | null)=>void;
 
 export interface UserDoc{
-    _id:ObjectId;
+    _id:ObjectID;
     id:string | null;
     version:number;
     salt:string;
@@ -152,7 +160,7 @@ export class Manager{
             });
         }
     }
-    saveUser(u:User,callback:Callback):void{
+    saveUser(u:User,callback:Callback<any>):void{
         this.db.collection(this.collection,(err,coll)=>{
             if(err){
                 callback(err,null);
@@ -161,7 +169,7 @@ export class Manager{
             coll.updateOne({id:u.id},toDoc(u),callback);
         });
     }
-    deleteUser(u:User,callback:Callback):void{
+    deleteUser(u:User,callback:Callback<any>):void{
         this.db.collection(this.collection,(err,coll)=>{
             if(err){
                 callback(err,null);
@@ -172,7 +180,7 @@ export class Manager{
     }
 
     //are
-    existsUser(userid:string,callback:Callback):void{
+    existsUser(userid:string,callback:Callback<boolean>):void{
         this.db.collection(this.collection,(err,coll)=>{
             if(err){
                 callback(err,null);

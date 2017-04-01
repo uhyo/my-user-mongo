@@ -1,4 +1,10 @@
-export function connect(url:string,callback:Callback):void{
-    var MongoClient:any = require('mongodb').MongoClient;
+import {
+    MongoClient,
+} from 'mongodb';
+import {
+    Callback,
+} from './util';
+
+export function connect(url:string, callback: Callback<any>):void{
     MongoClient.connect(url,callback);
 };
