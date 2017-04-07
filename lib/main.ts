@@ -1,31 +1,48 @@
 import extend=require('extend');
 
-import user=require('./user');
+import {
+    Db,
+} from 'mongodb';
+
+import {
+    User,
+    UserConfig,
+    UserDoc,
+    UserData,
+    Manager as UserManager,
+    ManagerOptions as UserManagerOptions,
+    init as userInit,
+} from './user';
+import {
+    connect,
+} from './db';
 
 import {
     Callback,
 } from './util';
 
-export import User=user.User;
-export import UserConfig=user.UserConfig;
-export import UserDoc=user.UserDoc;
-import UserCallback=user.UserCallback;
+export {
+    User,
+    UserConfig,
+    UserDoc,
+    UserData,
+};
 
 export interface ManagerOptions{
-    db?:any;
+    db?: Db;
     url?:string;
     collection?:{
         user?:string;
     };
 
-    user: user.ManagerOptions;
+    user: UserManagerOptions;
 }
 
-export interface EntryResult{
-    user:User;
+export interface EntryResult<T>{
+    user: User<UserData<T>>;
 }
 
-export class Manager{
+export class Manager<T extends object>{
     public userconfig:UserConfig;
     private db:any;
     private collection:{
@@ -33,15 +50,15 @@ export class Manager{
     };
     private options:ManagerOptions;
 
-    public user:user.Manager;
+    public user: UserManager<T>;
 
-    constructor(options:ManagerOptions){
-        this.options=extend(true,{
+    constructor(options: ManagerOptions){
+        this.options = extend(true,{
             collection:{
-                user:"user"
+                user:"user",
             }
         },options);
-        this.userconfig=user.init();
+        this.userconfig = userInit();
     }
 
     //initialize
@@ -70,7 +87,7 @@ export class Manager{
             }
         }else {
             //newly connect
-            require('./db').connect(options.url,(err,db)=>{
+            connect(options.url!,(err,db)=>{
                 if(err){
                     callback(err,null);
                     return;
@@ -83,11 +100,11 @@ export class Manager{
     }
     private initComponents():void{
         //db
-        this.user=new user.Manager(this.userconfig,this.db,this.collection.user,this.options.user);
+        this.user=new UserManager(this.userconfig,this.db,this.collection.user,this.options.user);
     }
     //high level user manipulation
-    entry(data:any, callback:(err, result:EntryResult | null)=>void):void{
-        this.user.createNewUser(data,(err,u:User)=>{
+    entry(data: T, callback:(err: any, result:EntryResult<T> | null)=>void):void{
+        this.user.createNewUser(data,(err,u:User<UserData<T>>)=>{
             if(err){
                 callback(err, null);
                 return;

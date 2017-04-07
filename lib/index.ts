@@ -12,6 +12,6 @@ export {
     ManagerOptions,
 };
 
-export function manager(options: ManagerOptions): Manager{
+export function manager<T extends object>(options: ManagerOptions): Manager<T>{
     return new Manager(options);
 }

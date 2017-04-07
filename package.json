@@ -24,15 +24,15 @@
   "homepage": "https://github.com/uhyo/my-user-mongo",
   "dependencies": {
     "extend": "^3.0.0",
-    "mongodb": "^2.2.11",
-    "my-user": "^0.1.2",
+    "mongodb": "^2.2.25",
+    "my-user": "^0.2.0",
     "random-string": "^0.1.2"
   },
   "devDependencies": {
     "@types/extend": "^2.0.30",
-    "@types/mongodb": "^2.1.41",
-    "@types/node": "^6.0.46",
+    "@types/mongodb": "^2.1.42",
+    "@types/node": "^7.0.12",
     "@types/random-string": "0.0.28",
-    "typescript": "^2.0.9"
+    "typescript": "^2.2.2"
   }
 }
