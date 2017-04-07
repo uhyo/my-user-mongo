@@ -1,6 +1,7 @@
 import {
     User,
     UserConfig,
+    UserData,
     Manager,
     ManagerOptions,
 } from './main';
@@ -8,6 +9,7 @@ import {
 export {
     User,
     UserConfig,
+    UserData,
     Manager,
     ManagerOptions,
 };
