@@ -1,4 +1,4 @@
-import extend=require('extend');
+import * as extend from 'extend';
 
 import {
     Db,

@@ -45,7 +45,11 @@ export function load<T extends object>(userconfig:UserConfig, doc:UserDoc<T> | n
     }
     const result = userconfig.create<UserData<T>>();
     result.loadRawData({
-        ...doc,
+        // ...doc,
+        id: doc.id,
+        version: doc.version,
+        salt: doc.salt,
+        password: doc.password,
         data: {
             ... (doc.data as object),
             _id: doc._id,

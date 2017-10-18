@@ -22,16 +22,16 @@
   },
   "homepage": "https://github.com/uhyo/my-user-mongo",
   "dependencies": {
-    "extend": "^3.0.0",
-    "mongodb": "^2.2.25",
+    "extend": "^3.0.1",
+    "mongodb": "^2.2.33",
     "my-user": "^0.2.0",
-    "random-string": "^0.1.2"
+    "random-string": "^0.2.0"
   },
   "devDependencies": {
-    "@types/extend": "^2.0.30",
-    "@types/mongodb": "^2.1.42",
-    "@types/node": "^7.0.12",
+    "@types/extend": "^3.0.0",
+    "@types/mongodb": "^2.2.13",
+    "@types/node": "^8.0.44",
     "@types/random-string": "0.0.28",
-    "typescript": "^2.2.2"
+    "typescript": "^2.5.3"
   }
 }
