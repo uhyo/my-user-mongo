@@ -1,6 +1,6 @@
 {
   "name": "my-user-mongo",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "My user management using MongoDB for me.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

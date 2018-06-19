@@ -1,7 +1,11 @@
+# v0.2.3
+
+* Fixed a bug that `null` was used for new user's ID
+
 # v0.2.2
 2018-06-19
 
-* Fixed a bug that `null` was used for new user's ID
+Invalid release
 
 # v0.2.1
 2017-11-01
